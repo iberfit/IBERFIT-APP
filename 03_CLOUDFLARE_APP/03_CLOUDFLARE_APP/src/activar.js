@@ -72,7 +72,7 @@ async function init() {
   render();
   const res = await api("validarTokenActivacion");
   estado.loading = false;
-  if (!res.ok) estado.error = res.message || "Este enlace no es válido.";
+  if (!res.ok) estado.error = res.message || "No hay un usuario asociado a este enlace. Contacte con IBERFIT para cualquier duda.";
   else estado.tokenInfo = res.data;
   render();
 }
