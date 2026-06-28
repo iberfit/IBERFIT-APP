@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1F3D2B">
+  <meta name="description" content="Tu proceso de entrenamiento IBERFIT. Diagnóstico, planificación y seguimiento en un entorno privado.">
+  <title>Espacio IBERFIT</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/icon-192.png">
+  <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="stylesheet" href="/src/styles.css?v=8.4.5">
+</head>
+<body>
+  <noscript>
+    <div class="noscript">Espacio IBERFIT necesita JavaScript para mostrar tu proceso privado.</div>
+  </noscript>
+
+  <div id="app-root">
+
+    <!-- ═══ ACCESS SCREEN ═══════════════════════════ -->
+    <section class="access-screen" id="accessScreen">
+
+      <!-- Left: brand panel (desktop only) -->
+      <div class="access-brand">
+        <div class="brand-identity">
+          <div class="brand-iso">
+            <img src="/assets/iberfit-isotipo.png" alt="IBERFIT isotipo">
+          </div>
+          <h1>IBERFIT</h1>
+          <p class="brand-subtitle">Diagnóstico físico, control de carga y seguimiento técnico. Tu proceso de entrenamiento en un entorno privado y exclusivo.</p>
+        </div>
+
+        <div class="brand-pillars">
+          <div class="brand-pillar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>Diagnóstico IRI personalizado</span>
+          </div>
+          <div class="brand-pillar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V5M3 19h16M7 15l3-4 3 2 5-7"/></svg>
+            <span>Control de carga y progresión</span>
+          </div>
+          <div class="brand-pillar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 5V3M16 5V3M8 13h2M12 13h2M8 17h2"/></svg>
+            <span>Seguimiento técnico semanal</span>
+          </div>
+          <div class="brand-pillar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9M12 7v5l3 3"/><path d="M18 2v5h5"/></svg>
+            <span>Ajuste continuo basado en respuesta</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form panel -->
+      <div class="access-form-wrap">
+        <!-- Mobile brand header (hidden on desktop) -->
+        <div class="mobile-brand-header">
+          <div class="mobile-brand-iso">
+            <img src="/assets/iberfit-isotipo.png" alt="IBERFIT">
+          </div>
+          <div class="mobile-brand-text">
+            <strong>IBERFIT</strong>
+            <span>Espacio privado</span>
+          </div>
+        </div>
+
+        <form class="login-card" id="loginForm">
+          <h2>Bienvenido a tu espacio</h2>
+          <p>Accede a tu semana, sesiones y seguimiento de proceso.</p>
+
+          <div class="field">
+            <label for="login">Usuario</label>
+            <input id="login" autocomplete="username" placeholder="Correo o teléfono">
+          </div>
+
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" autocomplete="current-password" placeholder="Contraseña">
+          </div>
+
+          <div class="login-actions">
+            <button class="btn btn-primary btn-full" type="submit">Entrar a mi espacio</button>
+            <button class="btn btn-ghost btn-full" type="button" id="connectionCheckBtn">Verificar conexión</button>
+            <button class="btn btn-link btn-full" type="button" id="helpBtn">Necesito ayuda con mi acceso</button>
+          </div>
+
+          <div class="status-box hidden" id="statusBox"></div>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- ═══ CLIENT APP ════════════════════════════════ -->
+    <section class="client-app hidden" id="clientApp">
+
+      <!-- Mobile + tablet header -->
+      <header class="app-header">
+        <div class="header-brand">
+          <div class="header-iso">
+            <img src="/assets/iberfit-isotipo.png" alt="IBERFIT">
+          </div>
+          <div>
+            <strong>IBERFIT</strong>
+            <span class="header-screen" id="headerContext">Inicio</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="modality-badge hidden" id="modalityBadge"></span>
+          <span class="private-badge">Privado</span>
+        </div>
+      </header>
+
+      <div class="app-body">
+
+        <!-- Desktop sidebar (hidden on mobile/tablet) -->
+        <aside class="app-sidebar" id="appSidebar">
+          <div class="sidebar-brand">
+            <div class="sidebar-iso">
+              <img src="/assets/iberfit-isotipo.png" alt="IBERFIT">
+            </div>
+            <strong>IBERFIT</strong>
+            <span id="sidebarClientName">Espacio cliente</span>
+          </div>
+
+          <nav class="sidebar-nav" id="sidebarNav">
+            <button class="sidebar-btn active" data-screen="home">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg>
+              Inicio
+            </button>
+            <button class="sidebar-btn" data-screen="week">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 12h3M8 16h5"/></svg>
+              Semana
+            </button>
+            <button class="sidebar-btn" data-screen="session">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7a5 5 0 1 0 5 5"/><path d="M12 11v2l2 1"/><path d="M18 3v4h4"/></svg>
+              Sesión
+            </button>
+            <button class="sidebar-btn" data-screen="process">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M7 15l3-4 3 2 5-7"/><path d="M18 6h2v2"/></svg>
+              Proceso
+            </button>
+            <button class="sidebar-btn ic-wa" data-screen="channel">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.03 3.2A12.74 12.74 0 0 0 5.08 22.43L3.2 29l6.72-1.77A12.73 12.73 0 1 0 16.03 3.2Zm0 2.42a10.31 10.31 0 0 1 8.73 15.8 10.29 10.29 0 0 1-13.86 3.3l-.48-.28-3.99 1.05 1.07-3.88-.31-.5A10.31 10.31 0 0 1 16.03 5.62Zm-4.1 5.47c-.23 0-.6.08-.92.44-.31.36-1.2 1.17-1.2 2.85 0 1.68 1.23 3.3 1.4 3.53.17.22 2.38 3.8 5.87 5.18 2.9 1.15 3.5.92 4.13.86.63-.06 2.04-.83 2.33-1.63.29-.8.29-1.49.2-1.63-.08-.14-.31-.22-.65-.39-.34-.17-2.04-1.01-2.36-1.12-.31-.12-.54-.17-.77.17-.23.34-.88 1.12-1.08 1.35-.2.22-.4.25-.74.08-.34-.17-1.44-.53-2.74-1.69-1.01-.9-1.7-2.02-1.9-2.36-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.22.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59h-.71Z"/></svg>
+              Canal
+            </button>
+          </nav>
+
+          <div class="sidebar-footer">
+            <div class="sidebar-badge">Espacio privado</div>
+            <div class="sidebar-client" id="sidebarModality"></div>
+          </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="app-main">
+          <div id="screenContainer"></div>
+        </main>
+
+      </div>
+
+      <!-- Mobile + tablet bottom nav -->
+      <nav class="bottom-nav" id="bottomNav">
+        <button class="nav-btn active" data-screen="home">
+          <span class="nav-ic">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10.5z"/></svg>
+          </span>
+          Inicio
+        </button>
+        <button class="nav-btn" data-screen="week">
+          <span class="nav-ic">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3M17 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 12h3M8 16h5"/></svg>
+          </span>
+          Semana
+        </button>
+        <button class="nav-btn" data-screen="session">
+          <span class="nav-ic">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7a5 5 0 1 0 5 5"/><path d="M12 11v2l2 1"/><path d="M18 3v4h4"/></svg>
+          </span>
+          Sesión
+        </button>
+        <button class="nav-btn" data-screen="process">
+          <span class="nav-ic">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16"/><path d="M7 15l3-4 3 2 5-7"/><path d="M18 6h2v2"/></svg>
+          </span>
+          Proceso
+        </button>
+        <button class="nav-btn" data-screen="channel">
+          <span class="nav-ic ic-wa">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.03 3.2A12.74 12.74 0 0 0 5.08 22.43L3.2 29l6.72-1.77A12.73 12.73 0 1 0 16.03 3.2Zm0 2.42a10.31 10.31 0 0 1 8.73 15.8 10.29 10.29 0 0 1-13.86 3.3l-.48-.28-3.99 1.05 1.07-3.88-.31-.5A10.31 10.31 0 0 1 16.03 5.62Zm-4.1 5.47c-.23 0-.6.08-.92.44-.31.36-1.2 1.17-1.2 2.85 0 1.68 1.23 3.3 1.4 3.53.17.22 2.38 3.8 5.87 5.18 2.9 1.15 3.5.92 4.13.86.63-.06 2.04-.83 2.33-1.63.29-.8.29-1.49.2-1.63-.08-.14-.31-.22-.65-.39-.34-.17-2.04-1.01-2.36-1.12-.31-.12-.54-.17-.77.17-.23.34-.88 1.12-1.08 1.35-.2.22-.4.25-.74.08-.34-.17-1.44-.53-2.74-1.69-1.01-.9-1.7-2.02-1.9-2.36-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.22.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.55-.28-.67-.56-.58-.77-.59h-.71Z"/></svg>
+          </span>
+          Canal
+        </button>
+      </nav>
+
+    </section>
+
+  </div>
+
+  <script type="module" src="/src/app.js?v=8.4.5"></script>
+</body>
+</html>
