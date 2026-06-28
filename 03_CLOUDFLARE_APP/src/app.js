@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════
-   IBERFIT V7.3 · App Client — Interaction Routing Final Candidate
-   Contratos técnicos V6.7 preservados · navegación interactiva añadida
+   IBERFIT V7.4 · App Client — Session Execution Final Candidate
+   Contratos técnicos V6.7 preservados · apertura real de sesiones desde Semana
    ══════════════════════════════════════════════════ */
 import { iberfitApi, saveSession, clearSession, currentApiMode } from "./api.js";
 import { IBERFIT_CONFIG } from "./config.js";
@@ -38,28 +38,69 @@ function modalityLabel(m) {
   return { PRESENCIAL: "Modalidad Presencial", HIBRIDO: "Modalidad Híbrida", ONLINE: "Modalidad Online" }[m] || m;
 }
 
+function normalizedSessionType(type = "") {
+  return String(type || "").trim().toUpperCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function sessionTypePill(type) {
+  const key = normalizedSessionType(type);
   const map = {
     PRESENCIAL:    ["pill-pres",   "Presencial"],
     ONLINE:        ["pill-online", "Online"],
     AUTONOMA:      ["pill-type",   "Autónoma"],
+    AUTONOMO:      ["pill-type",   "Autónoma"],
     COMPLEMENTARIA:["pill-type",   "Complementaria"],
     EVALUACION:    ["pill-type",   "Evaluación"],
     CHECKIN:       ["pill-type",   "Check-in"],
-    Fuerza:        ["pill-type",   "Fuerza"],
-    Acondicionamiento:["pill-type","Acondicionamiento"],
+    FUERZA:        ["pill-type",   "Fuerza"],
+    ACONDICIONAMIENTO:["pill-type","Acondicionamiento"],
+    MOVILIDAD:     ["pill-type",   "Movilidad"],
+    MIXTA:         ["pill-type",   "Mixta"]
   };
-  const [cls, label] = map[type] || ["pill-default", escapeHTML(type)];
+  const [cls, label] = map[key] || ["pill-default", escapeHTML(type || "Sesión")];
   return `<span class="pill ${cls}">${label}</span>`;
 }
 
+function getSessionDelivery(session = {}) {
+  const raw = session.deliveryMode || session.delivery || session.format || session.executionMode || session.modo || session.mode || session.tipoEjecucion || session.type || "";
+  const key = normalizedSessionType(raw);
+  if (["PRESENCIAL", "GUIADA", "GUIADA_PRESENCIAL", "PRESENCIAL_GUIADA"].includes(key)) return "PRESENCIAL";
+  if (["AUTONOMA", "AUTONOMO", "CASA", "EN_CASA", "TRABAJO_AUTONOMO"].includes(key)) return "AUTONOMA";
+  if (["ONLINE", "REMOTA", "A_DISTANCIA"].includes(key)) return "ONLINE";
+  if (["COMPLEMENTARIA", "COMPLEMENTARIO"].includes(key)) return "COMPLEMENTARIA";
+  return "";
+}
+
+function sessionDeliveryLabel(session = {}) {
+  const delivery = getSessionDelivery(session);
+  const labels = {
+    PRESENCIAL: "Guiada presencial",
+    AUTONOMA: "Trabajo autónomo",
+    ONLINE: "Para realizar en casa",
+    COMPLEMENTARIA: "Complementaria"
+  };
+  return labels[delivery] || "Ver sesión";
+}
+
+function sessionDeliveryKicker(session = {}) {
+  const delivery = getSessionDelivery(session);
+  const labels = {
+    PRESENCIAL: "Sesión presencial IBERFIT",
+    AUTONOMA: "Sesión autónoma",
+    ONLINE: "Sesión para realizar en casa",
+    COMPLEMENTARIA: "Trabajo complementario"
+  };
+  return labels[delivery] || "Sesión IBERFIT";
+}
+
 function isClientActionableSession(session = {}) {
-  return ["ONLINE", "AUTONOMA", "COMPLEMENTARIA"].includes(String(session.type || "").toUpperCase());
+  return Boolean(session?.id);
 }
 
 function firstActionableSession() {
   const sessions = state.data?.week?.sessions || [];
-  return sessions.find(isClientActionableSession) || sessions[0] || {};
+  return sessions.find(isClientActionableSession) || {};
 }
 
 function currentSession() {
@@ -73,9 +114,7 @@ function openSession(sessionId) {
   const sessions = state.data?.week?.sessions || [];
   const target = sessions.find(s => String(s.id) === id);
 
-  // Solo se abre visor directo para sesiones ejecutables por cliente.
-  // Presencial guiada se mantiene en Semana, no como pauta autónoma.
-  if (!target || !isClientActionableSession(target)) {
+  if (!target) {
     nav("week");
     return;
   }
@@ -85,21 +124,11 @@ function openSession(sessionId) {
 }
 
 function routePrimaryCta() {
-  const modality = getModality();
-
-  // Presencial: el cliente revisa su semana/cita; la ejecución va dentro de sesión guiada.
-  if (modality === "PRESENCIAL") {
-    nav("week");
-    return;
-  }
-
-  const target = firstActionableSession();
-  if (target?.id) openSession(target.id);
-  else nav("week");
+  nav("week");
 }
 
 function routeSessionNav() {
-  const target = firstActionableSession();
+  const target = currentSession();
   if (target?.id) openSession(target.id);
   else nav("week");
 }
@@ -285,7 +314,7 @@ function modalityBanner(modality) {
     },
     ONLINE: {
       icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
-      text: "Modalidad Online · Entrenamiento autónomo guiado"
+      text: "Modalidad Online · Sesiones prescritas para realizar en casa"
     }
   };
   const cfg = configs[modality] || configs.HIBRIDO;
@@ -358,13 +387,13 @@ function week() {
     <p class="section-label">Sesiones de esta semana</p>
     ${w.sessions.map(s => {
       const actionable = isClientActionableSession(s);
-      return `<article class="session-card ${actionable ? "session-card-action" : "session-card-guided"}" ${actionable ? `role="button" tabindex="0" aria-label="Ver sesión" onclick="window.iberfit_open_session('${escapeHTML(s.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.iberfit_open_session('${escapeHTML(s.id)}')}"` : ""}>
+      return `<article class="session-card session-card-action" role="button" tabindex="0" aria-label="Ver sesión" onclick="window.iberfit_open_session('${escapeHTML(s.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.iberfit_open_session('${escapeHTML(s.id)}')}">
         <div class="session-card-top">
           <div>
             <div class="session-title">${escapeHTML(s.title)}</div>
             <p class="session-obj">${escapeHTML(s.objective)}</p>
           </div>
-          ${actionable ? `<span class="session-arrow">Ver sesión</span>` : `<span class="session-guided-label">Guiada en sesión</span>`}
+          <span class="session-arrow">${escapeHTML(sessionDeliveryLabel(s))}</span>
         </div>
         <div class="session-pills">
           <span class="pill pill-pub">${escapeHTML(s.state)}</span>
@@ -387,7 +416,7 @@ function session() {
   const actionable = isClientActionableSession(s);
 
   return `<div class="screen-grid screen-enter">
-    ${hero(actionable ? "Sesión para realizar" : "Sesión IBERFIT", s.title || "Sesión publicada", s.objective || "Revisa el objetivo y registra tu respuesta al finalizar.")}
+    ${hero(sessionDeliveryKicker(s), s.title || "Sesión publicada", s.objective || "Revisa el objetivo y registra tu respuesta al finalizar.")}
 
     ${modalityBanner(modality)}
 
@@ -398,6 +427,7 @@ function session() {
       </div>
       <div class="session-overview-meta">
         ${sessionTypePill(s.type)}
+        ${sessionDeliveryLabel(s) !== "Ver sesión" ? `<span class="pill pill-default">${escapeHTML(sessionDeliveryLabel(s))}</span>` : ""}
         <span class="pill pill-dur">${escapeHTML(String(s.duration || "—"))} min</span>
       </div>
     </section>
