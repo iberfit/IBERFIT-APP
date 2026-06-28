@@ -1,4 +1,4 @@
-/* IBERFIT V8.4 · Mock data con sesiones reales, feedback completo e IRI visible */
+/* IBERFIT V8.4.1 · Mock data con sesiones reales, feedback completo e IRI visible */
 
 const BASE_SESSION_LOWER = {
   id: "SES-0001",

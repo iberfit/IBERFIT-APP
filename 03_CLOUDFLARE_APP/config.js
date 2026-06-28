@@ -1,7 +1,7 @@
-// IBERFIT V8.4 · Ecosystem Final Deploy Candidate configuration
+// IBERFIT V8.4.1 · Ecosystem Final Deploy Candidate configuration
 // Default is SAFE: production uses real API. Mock is allowed only on localhost or with ?mock=1 for QA.
 export const IBERFIT_CONFIG = {
-  appVersion: "V8_4_ECOSYSTEM_FINAL_DEPLOY_LOCKED",
+  appVersion: "V8_4_1_ECOSYSTEM_FINAL_DEPLOY_LOCKED",
   whatsappNumber: "56944040032",
   demoLogin: "alejandro.demo@email.com",
   demoPassword: "IBF-DEMO-0000",

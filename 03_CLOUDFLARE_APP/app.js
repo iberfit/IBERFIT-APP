@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════
-   IBERFIT V8.4 · App Client — Ecosistema Final Deploy Candidate
+   IBERFIT V8.4.1 · App Client — Ecosistema Final Deploy Candidate
    Cierre auditoría: feedback completo, IRI expuesto, sesión/semana robustas y WhatsApp con contexto.
    ══════════════════════════════════════════════════ */
 import { iberfitApi, saveSession, clearSession, currentApiMode } from "./api.js";
