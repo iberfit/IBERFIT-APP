@@ -1,5 +1,0 @@
-name = "iberfit-v6-rc"
-pages_build_output_dir = "."
-
-[vars]
-# Configurar en Cloudflare Dashboard, no hardcodear secretos aquí.
