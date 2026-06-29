@@ -546,9 +546,32 @@ function leerBloques() {
 }
 async function entrar(e) {
   e.preventDefault();
+
+  const loginInput = $("#coachLogin");
+  const passwordInput = $("#coachPassword");
+
+  const login = loginInput ? loginInput.value.trim() : "";
+  const password = passwordInput ? passwordInput.value : "";
+
+  if (!login || !password) {
+    return aviso("Ingresa usuario y contraseña.", "error");
+  }
+
   aviso("Validando acceso...");
-  const res = await api("coachLogin", { login: $("#coachLogin").value.trim(), password: $("#coachPassword").value.trim() });
-  if (!res.ok) return aviso(res.message || "No se pudo acceder.", "error");
+
+  const res = await api("coachLogin", {
+    login,
+    password
+  });
+
+  if (!res.ok) {
+    console.warn("IBERFIT Coach login failed", {
+      status: res.status,
+      message: res.message
+    });
+    return aviso(res.message || "No se pudo acceder.", "error");
+  }
+
   guardarSesionCoach(res.data || {});
   estado.panel = res.data?.dashboard || null;
   estado.aviso = "";
