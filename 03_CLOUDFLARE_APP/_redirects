@@ -1,0 +1,4 @@
+# IBERFIT V9.6.6 Coach Stabilization
+# Sin redirects limpios para Coach durante QA.
+# Ruta operativa de Coach: /coach.html
+# /api/* queda gestionado por Pages Functions y _routes.json.
