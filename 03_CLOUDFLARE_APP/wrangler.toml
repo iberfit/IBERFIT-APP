@@ -1,6 +1,6 @@
-name = "name = "iberfit-app"
+name = "name ="iberfit-app"
 compatibility_date = "2026-06-28"
-pages_build_output_dir = ".""
+pages_build_output_dir = "."
 pages_build_output_dir = "."
 
 [vars]
