@@ -1,4 +1,0 @@
-# IBERFIT V9.6.5 · sin redirects para evitar bucles
-# /coach se sirve como /coach/index.html
-# /activar se sirve como /activar/index.html
-# /api/* queda gestionado por Pages Functions y _routes.json
