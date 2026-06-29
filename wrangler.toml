@@ -1,0 +1,8 @@
+name = "iberfit-app"
+compatibility_date = "2026-06-29"
+pages_build_output_dir = "03_CLOUDFLARE_APP"
+
+[vars]
+# Secrets y variables reales se configuran en Cloudflare Dashboard:
+# APPS_SCRIPT_WEBAPP_URL
+# IBERFIT_WORKER_SECRET
