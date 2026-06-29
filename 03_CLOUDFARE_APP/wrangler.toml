@@ -1,6 +1,0 @@
-name = "iberfit-app"
-compatibility_date = "2026-06-28"
-pages_build_output_dir = "."
-
-[vars]
-# Configurar en Cloudflare Dashboard, no hardcodear secretos aquí.
