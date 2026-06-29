@@ -1,4 +1,4 @@
-name = "iberfit-v6-rc"
+name = "IBERFIT-APP"
 pages_build_output_dir = "."
 
 [vars]
