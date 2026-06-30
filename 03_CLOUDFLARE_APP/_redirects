@@ -1,4 +1,7 @@
-/coach /coach.html 200
-/coach/ /coach.html 200
+# IBERFIT V10.0.2 · Coach route físico, sin rewrite /coach
+# NO reescribir /coach ni /coach/ desde _redirects.
+# La ruta limpia se resuelve por archivo físico: /coach/index.html.
+# Motivo: evitar ERR_TOO_MANY_REDIRECTS y mantener /coach.html como ruta canónica.
+
 /activar /activar.html 200
 /activar/ /activar.html 200
