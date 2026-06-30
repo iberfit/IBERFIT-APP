@@ -1,0 +1,136 @@
+{
+  "id": "https://app.iberfit.cl/",
+  "name": "IBERFIT · Espacio privado",
+  "short_name": "IBERFIT",
+  "description": "IBERFIT · Espacio Cliente y App Entrenador con identidad premium, sesiones guiadas y seguimiento.",
+  "lang": "es-CL",
+  "dir": "ltr",
+  "start_url": "/?v=11.0.0-f7-7-2",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "background_color": "#03110B",
+  "theme_color": "#071A11",
+  "categories": [
+    "health",
+    "fitness",
+    "sports",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/assets/icon-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Espacio Cliente IBERFIT",
+      "short_name": "Cliente",
+      "description": "Abrir sesiones, progreso y seguimiento.",
+      "url": "/?origen=pwa-shortcut-cliente",
+      "icons": [
+        {
+          "src": "/assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "App Entrenador IBERFIT",
+      "short_name": "Entrenador",
+      "description": "Abrir clientes, sesiones y control del sistema.",
+      "url": "/coach.html?origen=pwa-shortcut-entrenador",
+      "icons": [
+        {
+          "src": "/assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshot-mobile-session.png",
+      "sizes": "941x1672",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Sesión guiada en Espacio Cliente"
+    },
+    {
+      "src": "/assets/screenshot-desktop-panel.png",
+      "sizes": "1586x992",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Panel principal del App Entrenador"
+    }
+  ],
+  "version": "11.0.0-f7-7-2"
+}
